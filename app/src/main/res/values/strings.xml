@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RunningTracking</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="mapApi">AIzaSyD7JS_gSeS2F-VOVQCwzR9W91Eo0R_gok8</string>
+</resources>
