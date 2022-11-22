@@ -1,4 +1,4 @@
-package com.example.runningtracking
+package com.example.runningtracking.ui
 
 
 import android.Manifest
@@ -8,11 +8,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.runningtracking.R
 import com.example.runningtracking.databinding.FragmentRunTrackMapBinding
 import com.example.runningtracking.others.Constants.ACTION_PAUSE_SERVICE
 import com.example.runningtracking.others.Constants.ACTION_START_OR_RESUME_SERVICE
@@ -22,25 +23,26 @@ import com.example.runningtracking.others.Constants.POLYLINE_WIDTH
 import com.example.runningtracking.others.Constants.REQUEST_CODE_LOCATION_PERMISSION
 import com.example.runningtracking.others.TrackingUtility
 import com.example.runningtracking.services.Polyline
-import com.example.runningtracking.services.Polylines
 import com.example.runningtracking.services.TrackingService
-import com.example.runningtracking.services.TrackingService.Companion.isTracking
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
-
+@AndroidEntryPoint
 class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: MapView
     private lateinit var button: FloatingActionButton
+    private lateinit var tvTime: TextView
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
+    private var curTimeInMillis = 0L
 //    private lateinit var button: FloatingActionButton
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +55,7 @@ class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
 //            sendCommandToService(ACTION_START_OR_RESUME_SERVICE)
 //        }
         val binding: FragmentRunTrackMapBinding = DataBindingUtil.inflate(
-            layoutInflater,R.layout.fragment_run_track_map,container,false
+            layoutInflater, R.layout.fragment_run_track_map,container,false
         )
         return binding.root
     }
@@ -64,6 +66,7 @@ class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
         requestPermissions()
         mapView = view.findViewById<MapView>(R.id.mapView2)
         button = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        tvTime = view.findViewById(R.id.tvTime)
         mapView.onCreate(savedInstanceState)
         button.setOnClickListener {
             toggleRun()
@@ -86,6 +89,11 @@ class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
             pathPoints = it
             addLatestPolyline()
             moveCameraToUser()
+        })
+        TrackingService.timeRunInMillis.observe(viewLifecycleOwner, Observer{
+            curTimeInMillis = it
+            val formattedTime = TrackingUtility.getFormattedStopWatchTime(curTimeInMillis, true)
+            tvTime.text = formattedTime.toString()
         })
     }
 

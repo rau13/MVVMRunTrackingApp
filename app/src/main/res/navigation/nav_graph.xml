@@ -11,7 +11,7 @@
         app:launchSingleTop="true"/>
     <fragment
         android:id="@+id/runTrackMap"
-        android:name="com.example.runningtracking.RunTrackMap"
+        android:name="com.example.runningtracking.ui.RunTrackMap"
         android:label="fragment_run_track_map"
         tools:layout="@layout/fragment_run_track_map" />
 </navigation>

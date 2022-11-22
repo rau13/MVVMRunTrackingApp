@@ -1,14 +1,15 @@
-package com.example.runningtracking
+package com.example.runningtracking.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
+import com.example.runningtracking.R
 import com.example.runningtracking.others.Constants.ACTION_SHOW_TRACKING_FRAGMENT
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var navHostFragment: FragmentContainerView
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -5,7 +5,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RunTrackMap">
+    tools:context=".ui.RunTrackMap">
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -44,6 +44,14 @@
         android:clickable="true"
         app:layout_anchor="@id/bottom_menu"
         android:focusable="true" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:text="" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
