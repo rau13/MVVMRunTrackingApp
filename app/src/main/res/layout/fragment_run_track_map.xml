@@ -52,6 +52,18 @@
         android:textSize="25dp"
         android:gravity="center"
         android:text="" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="top|right"
+        android:clickable="true"
+        app:layout_anchor="@id/floatingActionButton"
+        app:srcCompat="@drawable/ic_stop_black_24dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
