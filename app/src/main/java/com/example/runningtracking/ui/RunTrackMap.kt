@@ -17,7 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.runningtracking.R
 import com.example.runningtracking.databinding.FragmentRunTrackMapBinding
 import com.example.runningtracking.db.Run
@@ -37,6 +40,8 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -48,6 +53,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
+
+    lateinit var navController : NavController
+    lateinit var bottomMenu : BottomNavigationView
 
     //Animation
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.rotate_open_anim) }
@@ -66,9 +74,14 @@ class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
     private var menu: Menu? = null
     private var weight = 80f
     private var isTracking = false
+
     private var pathPoints = mutableListOf<Polyline>()
     private var curTimeInMillis = 0L
+
+
+
 //    private lateinit var button: FloatingActionButton
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,6 +98,10 @@ class RunTrackMap : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestPermissions()
+        navController = findNavController()
+        bottomMenu = view.findViewById(R.id.bottomNavView)
+        bottomMenu.setupWithNavController(navController)
+        bottomMenu.menu.getItem(1).isCheckable = false
         mapView = view.findViewById<MapView>(R.id.mapView2)
         button = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         tvTime = view.findViewById(R.id.tvTime)

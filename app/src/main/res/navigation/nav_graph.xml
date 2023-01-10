@@ -14,4 +14,8 @@
         android:name="com.example.runningtracking.ui.RunTrackMap"
         android:label="fragment_run_track_map"
         tools:layout="@layout/fragment_run_track_map" />
+    <fragment
+        android:id="@+id/runs2"
+        android:name="com.example.runningtracking.ui.Runs"
+        android:label="Runs" />
 </navigation>

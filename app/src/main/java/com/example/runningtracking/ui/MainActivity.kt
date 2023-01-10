@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.runningtracking.R
 import com.example.runningtracking.others.Constants.ACTION_SHOW_TRACKING_FRAGMENT
